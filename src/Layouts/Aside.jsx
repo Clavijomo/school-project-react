@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Outlet, useLocation } from 'react-router';
 import { Link } from "react-router-dom"
 
-const Navbar = () => {
+const Aside = () => {
   const location = useLocation();
   const [sizeScreen] = useState(screen.width);
   return (
@@ -32,12 +32,9 @@ const Navbar = () => {
               Profesores
           </Link>
         </div>
-      </aside>
-      <main className="rounded-2xl sm:w-full">        
-        <Outlet/>
-      </main>
+      </aside>      
     </div>
   )
 }
 
-export default Navbar;
+export default Aside;

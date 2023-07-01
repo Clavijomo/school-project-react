@@ -1,7 +1,11 @@
 import React, {useState} from 'react'
+import {useSelector} from "react-redux"
 
 const Classroom = () => {
-  const [size, setSize] = useState(screen.width);
+  const [size] = useState(screen.width);
+  const studentState = useSelector(state => state.students);
+  console.log(studentState);
+
   return (
     <div className="bg-zinc-100 rounded-2xl p-5 pr-5 pl-5 w-full pb-0 h-full">
       <div className="flex items-center justify-between mb-5">

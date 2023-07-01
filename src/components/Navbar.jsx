@@ -6,7 +6,7 @@ const Navbar = () => {
     
   return (
     <div>
-    <div style={{ display: size < 768 ? "none" : "flex" }} className="bg-zinc-100 p-4 rounded-2xl md:w-full md:flex md:items-center md:justify-between">      
+      <div style={{ display: size < 768 ? "none" : "flex" }} className="bg-zinc-100 p-4 rounded-2xl md:w-full md:flex md:items-center md:justify-between">      
         <div className="flex gap-3 items-center md:flex sm:hidden">
           <img className="w-12 border-1 border rounded-full" src="https://cdn-icons-png.flaticon.com/512/2784/2784518.png" alt=""/>
           <div>

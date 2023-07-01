@@ -6,10 +6,7 @@ import Navbar from '../components/Navbar';
 
 const Dashboard = () => {
   return (
-    <div className="space-y-5 md:flex md:flex-col sm:h-full sm:w-full">
-      <div className="sm:w-full">
-        <Navbar/>
-      </div>
+    <div className="space-y-5 md:flex md:flex-col sm:h-full sm:w-full">      
       <div className="h-full">
         <div className="md:grid md:grid-cols-2 md:gap-5 h-full">
           <div>  
