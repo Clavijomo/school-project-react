@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const [size] = useState(screen.width);
+  const location = useLocation();
     
   return (
     <div>
@@ -10,13 +11,10 @@ const Navbar = () => {
         <div className="flex gap-3 items-center md:flex sm:hidden">
           <img className="w-12 border-1 border rounded-full" src="https://cdn-icons-png.flaticon.com/512/2784/2784518.png" alt=""/>
           <div>
-            <h1 className="font-semibold text-md">Nombre profesor</h1>
-            <p className="text-zinc-400 font-thin text-sm">Clases y materias</p>
+            <h3 className="font-semibold">Administrador</h3>
+            <p className="text-zinc-400 font-thin text-sm">¡Hola, administrador!</p>
           </div>
-        </div>
-        <div className="md:block sm:hidden">
-          <h3 className="text-sm text-zinc-500">Administrador</h3>
-        </div>
+        </div>        
       </div>
       <div className="md:hidden">
         <nav className="w-full py-5 flex justify-evenly">

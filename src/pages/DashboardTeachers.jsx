@@ -9,7 +9,7 @@ const Teachers = () => {
     <div className="space-y-5 md:flex md:flex-col sm:h-full sm:w-full">      
       <div className="h-full">
         <div className="md:grid md:grid-cols-2 md:gap-5 h-full">
-          <div>  
+          <div className="h-full">  
             <InfoTeacher />       
           </div>
           <div className="flex flex-col gap-5">

@@ -9,10 +9,16 @@ import Aside from './Aside';
 const Layout = () => {
   return (
     <>
-      <Sidebar />
-      <div className="ml-52">
-        <Navbar />
-        <Outlet />
+      <div className="flex gap-3 h-screen p-5">
+        <div className="md:w-1/5 h-full">
+          <Sidebar />      
+        </div>
+        <div className="w-full h-full">
+          <div className="flex flex-col space-y-5 sm:h-full">
+            <Navbar />
+            <Outlet />
+          </div>
+        </div>
       </div>
     </>
   )

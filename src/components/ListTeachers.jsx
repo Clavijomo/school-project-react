@@ -2,7 +2,7 @@ import React from 'react'
 
 const ListTeachers = () => {
   return (
-    <div className="bg-zinc-100 rounded-2xl p-5 pr-5 pl-5 w-full pb-0 h-full">
+    <div className="bg-zinc-100 rounded-2xl p-5 pr-5 pl-5 w-full pb-0 h-full mt-8 md:mt-0">
       <div className="flex items-center justify-between mb-5">
         <h1 className="text-lg">Profesores</h1>
         <p className="lg:block">10 profesor(es)</p>      
