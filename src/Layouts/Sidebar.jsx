@@ -6,7 +6,7 @@ const Sidebar = () => {
   const [sizeScreen] = useState(screen.width);
 
   return (    
-    <aside style={{ display: sizeScreen < 500 ? "none" : "block" }} className="md:w-1/5 md:flex-col md:gap-2 md:rounded-2xl md:p-5 md:bg-zinc-100 md:block" className="w-full h-full bg-zinc-100 rounded-2xl p-5">      
+    <aside style={{ display: sizeScreen < 500 ? "none" : "block" }} className="w-full h-full bg-zinc-100 rounded-2xl p-5">      
       <h1 className="text-2xl">Dashboard School</h1>
       <div className="mt-5 space-y-4">
         <Link 

@@ -1,5 +1,4 @@
-import React from 'react'
-import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css'
 import { Provider } from 'react-redux';

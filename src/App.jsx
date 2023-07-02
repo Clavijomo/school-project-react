@@ -1,6 +1,7 @@
-import React from 'react'
-import { BrowserRouter, Routes, Route} from 'react-router-dom'
+import React from 'react';
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import Layout from './Layouts/Layout';
+import CreateStudent from './pages/CreateStudent';
 import DashboardStudents from "./pages/DashboardStudents";
 import DashboardTeachers from './pages/DashboardTeachers';
 
@@ -12,6 +13,7 @@ const App = () => {
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<DashboardStudents/>} />        
             <Route path="/teachers" element={<DashboardTeachers/>} />        
+            <Route path="/create-student" element={<CreateStudent/>} />     
           </Route>          
         </Routes>
       </BrowserRouter>    
