@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { addStudent } from '../features/ListStudents';
 import {v4 as uuid} from "uuid";
+import asignatures from '../data/listAsignatures';
 
 const CreateStudent = () => {
   const navigate = useNavigate();
@@ -13,9 +14,7 @@ const CreateStudent = () => {
     identificacion: '',
     materias: [],
   });
-
   const dispatch = useDispatch();
-
   const handleChange = e => {
     setStudent({
       ...student,
@@ -25,18 +24,23 @@ const CreateStudent = () => {
 
   const handleSubmit = e => {
     e.preventDefault();    
-    dispatch(addStudent({
-      ...student,
-      id: uuid(),
-    }));
-    navigate('/');
+    // Agregar validación del array de materias del estudiante    
+    if(Array.isArray(student.materias) && student.materias.length) {
+      dispatch(addStudent({
+        ...student,
+        id: uuid(),
+      }));
+      navigate('/');
+      return;
+    } 
+    alert("Debes seleccionar mínimo una materia");
   }
 
   const handleCheckbox = e => {
     let newStudent = student;
     if(e.target.checked) {
       newStudent.materias.push(Number(e.target.name));
-      setStudent(newStudent);      
+      setStudent(newStudent); 
     } else {
       const filterId = newStudent.materias.filter(item => item !== Number(e.target.name));      
       newStudent.materias = filterId;
@@ -54,7 +58,7 @@ const CreateStudent = () => {
         <input 
           required
           name="nombre"
-          className="bg-transparent w-max border-black border-b pb-1" 
+          className="bg-transparent w-full block md:w-max border-black border-b pb-1" 
           type="text" 
           placeholder="Nombre"
           onChange={handleChange}
@@ -62,7 +66,7 @@ const CreateStudent = () => {
         <input 
           required
           name="apellido"
-          className="bg-transparent block w-max border-black border-b pb-1" 
+          className="bg-transparent w-full block md:w-max border-black border-b pb-1" 
           type="text" 
           placeholder="Apellido"
           onChange={handleChange}
@@ -70,7 +74,7 @@ const CreateStudent = () => {
         <input 
           required
           name="edad"
-          className="bg-transparent block w-max border-black border-b pb-1" 
+          className="bg-transparent w-full block md:w-max border-black border-b pb-1" 
           type="number" 
           placeholder="Edad"
           onChange={handleChange}
@@ -78,7 +82,7 @@ const CreateStudent = () => {
         <input 
           required
           name="identificacion"
-          className="bg-transparent block w-max border-black border-b pb-1" 
+          className="bg-transparent w-full block md:w-max border-black border-b pb-1" 
           type="number" 
           placeholder="No. identificación"
           onChange={handleChange}
@@ -87,30 +91,22 @@ const CreateStudent = () => {
             <div>
               <p className="text-zinc-500 text-xl">Asignar materias al estudiante</p>
             </div>
-          <div className="flex items-center gap-3 border w-max p-3 shadow-md rounded-lg font-semibold">          
-            <input               
-              type="checkbox" 
-              name="1" 
-              onChange={handleCheckbox}                       
-            />
-            Matemáticas            
-            <input 
-              type="checkbox" 
-              name="2" 
-              onChange={handleCheckbox}                       
-            />
-            Ciencias
-            <input 
-              type="checkbox" 
-              name="3" 
-              onChange={handleCheckbox}                       
-            />
-            Música
+          <div className="flex items-center md:gap-5 border w-full md:w-max p-3 shadow-md rounded-lg font-semibold">       
+            {asignatures && asignatures.map( asignature => (
+              <label className="flex mr-3 gap-2" key={asignature.id}>
+                <input 
+                  type="checkbox"                   
+                  name={asignature.id}
+                  onChange={handleCheckbox}                 
+                />
+                {asignature.nombre}
+              </label>
+            ))}
           </div>
         </div>  
         
         <input 
-          className="bg-blue-500 py-2 px-3 text-white rounded-full shadow-2xl"
+          className="bg-blue-500 w-full md:w-max rounded-md  py-2 px-3 text-white md:rounded-full shadow-2xl"
           type="submit" 
           value="Crear estudiante"
         />        
