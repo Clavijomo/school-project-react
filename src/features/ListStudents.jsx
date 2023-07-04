@@ -14,7 +14,7 @@ const studentSlice = createSlice({
     deleteStudent: (state, action) => {
       const studentFound = state.find(student => student.id === action.payload);
       if(studentFound) {        
-        const confirm = window.confirm('Estás seguro/a que deseas eliminar a este estudiante?');        
+        const confirm = window.confirm('Estás seguro/a que quieres eliminar a este estudiante?');        
         if(confirm) {
           state.splice(state.indexOf(studentFound), 1);
         }
