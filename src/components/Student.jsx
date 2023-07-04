@@ -1,8 +1,11 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import asignatures from '../data/listAsignatures';
+import {deleteStudent} from "../features/ListStudents";
 
 const Student = ({student}) => {  
-  const { nombre, apellido, edad, direccion, materias} = student;    
+  const { nombre, apellido, edad, direccion, materias, id} = student;    
+  const dispatch = useDispatch();
 
   const searchAsignatures = () => {
     let infoAsignature = 'Sin materia';
@@ -10,6 +13,10 @@ const Student = ({student}) => {
       infoAsignature = asignatures.filter(item => item.id === materia)[0].nombre;            
     });
     return infoAsignature;
+  }
+
+  const handleDelete = id => {
+    dispatch(deleteStudent(id));
   }
   
   return (
@@ -20,8 +27,15 @@ const Student = ({student}) => {
       </div>      
       <div>
         <div className="flex gap-2">
-          <button className="bg-blue-500 text-white rounded-full flex px-2 py-2 items-center justify-center text-sm">Editar</button>
-          <button className="bg-red-500 text-white rounded-full flex px-2 py-2 items-center justify-center text-sm">Eliminar</button>
+          <button 
+            className="bg-blue-500 text-white rounded-full flex px-2 py-2 items-center justify-center text-sm">
+              Editar
+          </button>
+          <button 
+            onClick={() => handleDelete(id)}
+            className="bg-red-500 text-white rounded-full flex px-2 py-2 items-center justify-center text-sm">
+              Eliminar
+          </button>
         </div>
       </div>
     </div>
