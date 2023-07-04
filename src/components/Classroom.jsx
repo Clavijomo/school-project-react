@@ -15,8 +15,7 @@ const Classroom = () => {
   return (
     <div className="bg-zinc-100 rounded-2xl p-5 pr-5 pl-5 w-full pb-0 h-full mt-8 md:mt-0">
       <div className="flex items-center justify-between mb-5">
-        <h1 className="md:block md:text-md">Estudiante</h1>        
-        <p>Materia</p>
+        <h1 className="md:block md:text-md">Estudiante</h1>                
         <p>Acciones</p>
       </div>
       <div className="flex flex-col justify-betweeen h-80 relative">

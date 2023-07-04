@@ -88,10 +88,10 @@ const CreateStudent = () => {
           onChange={handleChange}
         />
         <div className="flex flex-col gap-5">
-            <div>
-              <p className="text-zinc-500 text-xl">Asignar materias al estudiante</p>
-            </div>
-          <div className="flex items-center md:gap-5 border w-full md:w-max p-3 shadow-md rounded-lg font-semibold">       
+          <div>
+            <p className="text-zinc-500 text-xl">Asignar materias al estudiante</p>
+          </div>
+          <div className="flex flex-wrap gap-y-3 items-center md:gap-5 border w-full md:w-max p-3 shadow-md rounded-lg font-semibold">       
             {asignatures && asignatures.map( asignature => (
               <label className="flex mr-3 gap-2" key={asignature.id}>
                 <input 
@@ -103,8 +103,7 @@ const CreateStudent = () => {
               </label>
             ))}
           </div>
-        </div>  
-        
+        </div>      
         <input 
           className="bg-blue-500 w-full md:w-max rounded-md  py-2 px-3 text-white md:rounded-full shadow-2xl"
           type="submit" 

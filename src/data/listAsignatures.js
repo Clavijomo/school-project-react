@@ -10,7 +10,15 @@ const asignatures = [
   {
     nombre: "Música",
     id: 3
-  }
+  },
+  {
+    nombre: "Español",
+    id: 4
+  },
+  {
+    nombre: "Inglés",
+    id: 5
+  }  
 ]
 
 export default asignatures;
