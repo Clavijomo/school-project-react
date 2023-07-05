@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import {v4 as uuid} from "uuid";
 import asignatures from '../data/listAsignatures';
-import teachers from '../data/listTeachers';
 import { addTeacher, editTeacher } from '../features/ListTeachers';
 import { searchArray } from '../helpers/SearchValueArray';
 
@@ -25,7 +24,6 @@ export const CreateTeacher = () => {
       ...teacher,
       [e.target.name]: e.target.value,
     });
-    console.log(teacher);
   }
 
   useEffect(() => {

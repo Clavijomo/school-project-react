@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
-import Teacher from '../app/Teacher';
+import Teacher from './Teacher';
 
 const ListTeachers = () => {
   const [teachers, setTeachers] = useState([]);

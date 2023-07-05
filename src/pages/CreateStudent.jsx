@@ -77,7 +77,6 @@ const CreateStudent = () => {
     let response = false;
     student.materias.map(item => {
       if(item === id) {
-        console.log(item)
         response = true;
       }
     });

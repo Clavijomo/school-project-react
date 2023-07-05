@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import Students from "../data/listStudents";
-import Swal from "sweetalert2";
 
 const initialState = Students;
 
@@ -31,7 +30,7 @@ const studentSlice = createSlice({
         foundStudent.telefono = telefono;
         foundStudent.materias = materias;
       }
-    }
+    },
   }
 });
 
