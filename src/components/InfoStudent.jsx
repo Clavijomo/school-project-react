@@ -65,13 +65,13 @@ const InfoStudent = ({infoStudent}) => {
         </div>  
       </>          
       :
-      <div className="h-full flex items-center justify-center flex-col gap-3">
+      <div className="h-96 md:h-full flex items-center justify-center flex-col gap-3">
         <p className="font-semibold text-center">Ningún estudiante seleccionado</p>
-        <h1 className="text-lg text-zinc-400 text-center">Haz clic en Ver detalle del estudiante para ver su información completa</h1>
+        <h1 className="text-md md:text-lg text-zinc-400 text-center">Haz clic en Ver detalle del estudiante para ver su información completa</h1>
       </div>
     }
     </div>
-  )
+  );
 }
 
 export default InfoStudent;
