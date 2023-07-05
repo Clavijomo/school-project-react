@@ -19,9 +19,21 @@ const studentSlice = createSlice({
           state.splice(state.indexOf(studentFound), 1);
         }
       }
+    },
+    editStudent: (state, action) => {
+      const {id, nombre, apellido, direccion, edad, telefono, materias } = action.payload;
+      const foundStudent = state.find(student => student.id === id);      
+      if(foundStudent) {
+        foundStudent.nombre = nombre;
+        foundStudent.apellido = apellido;
+        foundStudent.direccion = direccion;
+        foundStudent.edad = edad;
+        foundStudent.telefono = telefono;
+        foundStudent.materias = materias;
+      }
     }
   }
 });
 
-export const {addStudent, deleteStudent} = studentSlice.actions;
+export const {addStudent, deleteStudent, editStudent} = studentSlice.actions;
 export default studentSlice.reducer;

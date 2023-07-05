@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import asignatures from '../data/listAsignatures';
 import {deleteStudent} from "../features/ListStudents";
 
@@ -27,10 +28,11 @@ const Student = ({student}) => {
       </div>      
       <div>
         <div className="flex gap-2">
-          <button 
+          <Link 
+            to={`/edit-student/${id}`}
             className="bg-blue-500 text-white rounded-full flex px-2 py-2 items-center justify-center text-sm">
               Editar
-          </button>
+          </Link>
           <button 
             onClick={() => handleDelete(id)}
             className="bg-red-500 text-white rounded-full flex px-2 py-2 items-center justify-center text-sm">

@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from "react-redux";
-import { addStudent } from '../features/ListStudents';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { addStudent, editStudent } from '../features/ListStudents';
 import {v4 as uuid} from "uuid";
 import asignatures from '../data/listAsignatures';
+import {searchArray} from '../helpers/SearchValueArray';
 
 const CreateStudent = () => {
   const navigate = useNavigate();
+  const params = useParams();
+  const listStudents = useSelector(state => state.students);
+
   const [student, setStudent] = useState({
     nombre: '',
     apellido: '',
@@ -22,37 +26,69 @@ const CreateStudent = () => {
     });
   }
 
+  useEffect(() => {
+    if (params.id) {      
+      const userEdit = searchArray(params.id, listStudents);      
+      setStudent(userEdit);
+    }
+  }, []);
+
   const handleSubmit = e => {
     e.preventDefault();    
-    // Agregar validación del array de materias del estudiante    
+    // Si está editando...
     if(Array.isArray(student.materias) && student.materias.length) {
-      dispatch(addStudent({
-        ...student,
-        id: uuid(),
-      }));
+      if(params.id) {
+        dispatch(editStudent(student));
+      } else {
+        // Agregar validación del array de materias del estudiante    
+        dispatch(addStudent({
+          ...student,
+          id: uuid(),
+        }));              
+      }    
       navigate('/');
-      return;
-    } 
+      return
+    }
     alert("Debes seleccionar mínimo una materia");
   }
 
-  const handleCheckbox = e => {
+  const handleCheckbox = e => {  
     let newStudent = student;
-    if(e.target.checked) {
-      newStudent.materias.push(Number(e.target.name));
-      setStudent(newStudent); 
+    if(!params.id) {
+      if(e.target.checked) {
+        newStudent.materias.push(Number(e.target.value));
+        setStudent(newStudent); 
+      } else {
+        const filterId = newStudent.materias.filter(item => item !== Number(e.target.value));      
+        newStudent.materias = filterId;
+        setStudent(newStudent);
+      }
     } else {
-      const filterId = newStudent.materias.filter(item => item !== Number(e.target.name));      
-      newStudent.materias = filterId;
-      setStudent(newStudent);
-    }
+      if(e.target.checked) {
+        setStudent({...student, materias: [...student.materias, Number(e.target.value)]})
+      } else {
+        const filterId = student.materias.filter(item => item !== Number(e.target.value));   
+        setStudent({...student, materias: filterId});
+      }
+    } 
+  }
+
+  const asignatureChecked = id => {
+    let response = false;
+    student.materias.map(item => {
+      if(item === id) {
+        console.log(item)
+        response = true;
+      }
+    });
+    return response;
   }
   
   return (
     <div className="bg-white border h-full p-5 shadow-xl rounded-2xl">
-      <div className="space-y-2">
-        <h1 className="text-2xl font-semibold">Crear nuevo estudiante</h1>
-        <p className="text-zinc-400">En este formulario puedes crear los estudiantes</p>
+      <div className="space-y-2">        
+        <h1 className="text-2xl font-semibold">{params.id ? 'Editar estudiante' : 'Crear nuevo estudiante'}</h1>
+        <p className="text-zinc-400">En este formulario puedes {params.id ? 'editar' : 'crear'} los estudiantes</p>
       </div>
       <form onSubmit={handleSubmit} className="mt-8 space-y-10">  
         <input 
@@ -62,6 +98,7 @@ const CreateStudent = () => {
           type="text" 
           placeholder="Nombre"
           onChange={handleChange}
+          value={student.nombre}
         />
         <input 
           required
@@ -70,6 +107,7 @@ const CreateStudent = () => {
           type="text" 
           placeholder="Apellido"
           onChange={handleChange}
+          value={student.apellido}
         />
         <input 
           required
@@ -78,6 +116,7 @@ const CreateStudent = () => {
           type="number" 
           placeholder="Edad"
           onChange={handleChange}
+          value={student.edad}
         />
         <input 
           required
@@ -86,6 +125,7 @@ const CreateStudent = () => {
           type="number" 
           placeholder="No. identificación"
           onChange={handleChange}
+          value={student.identificacion}
         />
         <div className="flex flex-col gap-5">
           <div>
@@ -94,12 +134,26 @@ const CreateStudent = () => {
           <div className="flex flex-wrap gap-y-3 items-center md:gap-5 border w-full md:w-max p-3 shadow-md rounded-lg font-semibold">       
             {asignatures && asignatures.map( asignature => (
               <label className="flex mr-3 gap-2" key={asignature.id}>
-                <input 
-                  type="checkbox"                   
-                  name={asignature.id}
-                  onChange={handleCheckbox}                 
-                />
-                {asignature.nombre}
+                {!params.id ? 
+                  <>
+                    <input                                   
+                      type="checkbox"                   
+                      value={asignature.id}
+                      onChange={handleCheckbox}                 
+                    />
+                    {asignature.nombre}
+                  </>
+                  : 
+                  <>
+                    <input  
+                      checked={asignatureChecked(asignature.id)}
+                      type="checkbox"                   
+                      value={asignature.id}
+                      onChange={handleCheckbox}                 
+                    />
+                    {asignature.nombre}
+                  </>
+                }                
               </label>
             ))}
           </div>
@@ -107,7 +161,7 @@ const CreateStudent = () => {
         <input 
           className="bg-blue-500 w-full md:w-max rounded-md  py-2 px-3 text-white md:rounded-full shadow-2xl"
           type="submit" 
-          value="Crear estudiante"
+          value={params.id ? 'Guardar cambios' : 'Crear estudiante'}
         />        
         <Link
           className="block text-zinc-500"
