@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import {v4 as uuid} from "uuid";
 import asignatures from '../data/listAsignatures';
-import { addTeacher } from '../features/ListTeachers';
+import teachers from '../data/listTeachers';
+import { addTeacher, editTeacher } from '../features/ListTeachers';
+import { searchArray } from '../helpers/SearchValueArray';
 
 export const CreateTeacher = () => {
+  const params = useParams();
+  const listTeachers = useSelector(state => state.teachers);
   const [teacher, setTeacher] = useState({
     nombre: '',
     apellido: '',
@@ -16,37 +20,47 @@ export const CreateTeacher = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
-  const handleChange = e => {
+  const handleChange = e => {            
     setTeacher({
       ...teacher,
       [e.target.name]: e.target.value,
     });
+    console.log(teacher);
   }
+
+  useEffect(() => {
+    const userEdit = searchArray(params.id, listTeachers);
+    setTeacher(userEdit);
+  }, []);
 
   const handleSubmit = e => {
     e.preventDefault();    
-    dispatch(addTeacher({
-      ...teacher,
-      id: uuid()
-    }));
+    if(params.id) {
+      dispatch(editTeacher(teacher));
+    } else {
+      dispatch(addTeacher({
+        ...teacher,
+        id: uuid()
+      }));
+    }    
     navigate('/teachers');
     return;
   }
 
-  const handleCheckbox = e => {
-    let newTeacher = teacher;    
+  const handleSelect = e => {     
     if(e.target.value) {
-      newTeacher.materias = Number(e.target.value);
-      setTeacher(newTeacher);
-      console.log(newTeacher);
+      setTeacher({
+        ...teacher,
+        materias: Number(e.target.value)
+      })      
     }
   }
 
   return (
     <div className="bg-white border h-full p-5 shadow-xl rounded-2xl">
       <div className="space-y-2">
-        <h1 className="text-2xl font-semibold">Crear nuevo/a profesor/a</h1>
-        <p className="text-zinc-400">En este formulario puedes crear los profesores de la institución</p>
+        <h1 className="text-2xl font-semibold">{params.id ? 'Editar profesor/a' : 'Crear nuevo/a profesor/a'}</h1>
+        <p className="text-zinc-400">En este formulario puedes {params.id ? 'editar' : 'crear'} los profesores de la institución</p>
       </div>
       <form onSubmit={handleSubmit} className="mt-8 space-y-10">  
         <input 
@@ -56,6 +70,7 @@ export const CreateTeacher = () => {
           type="text" 
           placeholder="Nombre"          
           onChange={handleChange}
+          value={teacher.nombre}
         />
         <input 
           required
@@ -63,7 +78,8 @@ export const CreateTeacher = () => {
           className="bg-transparent w-full block md:w-max border-black border-b pb-1" 
           type="text" 
           placeholder="Apellido" 
-          onChange={handleChange}         
+          onChange={handleChange}  
+          value={teacher.apellido}       
         />
         <input 
           required
@@ -71,7 +87,8 @@ export const CreateTeacher = () => {
           className="bg-transparent w-full block md:w-max border-black border-b pb-1" 
           type="number" 
           placeholder="Edad"   
-          onChange={handleChange}                 
+          onChange={handleChange}  
+          value={teacher.edad}               
         />
         <input 
           required
@@ -79,32 +96,36 @@ export const CreateTeacher = () => {
           className="bg-transparent w-full block md:w-max border-black border-b pb-1" 
           type="number" 
           placeholder="No. identificación"     
-          onChange={handleChange}     
+          onChange={handleChange}
+          value={teacher.identificacion}   
         />  
         <div className="flex flex-col gap-2">
           <h1 className="text-center md:text-left text-lg text-zinc-500">Asignar materias</h1>      
           <div className="flex flex-wrap gap-y-3 items-center md:gap-5 border shadow-lg w-full md:w-max p-3 rounded-lg">
-            <select  
-              required            
-              onChange={handleCheckbox}
-              name="materias">
-                <option value="">-- Seleccionar materia --</option>
-              {asignatures && asignatures.map(asignature => (
-                <option
-                  key={asignature.id}
-                  name="materias"                  
-                  value={asignature.id}
-                >
-                  {asignature.nombre}
-                </option>                             
-              ))}
-            </select>
+            {params.id && 
+              <select  
+                required            
+                onChange={handleSelect}
+                value={teacher.materias > 0 && teacher.materias}
+                name="materias">
+                  <option value="">-- Seleccionar materia --</option>
+                {asignatures && asignatures.map(asignature => (
+                  <option
+                    key={asignature.id}
+                    name="materias"                  
+                    value={asignature.id}
+                  >
+                    {asignature.nombre}
+                  </option>                             
+                ))}
+              </select>
+            }            
           </div> 
         </div>     
         <input 
           className="bg-blue-500 w-full md:w-max rounded-md  py-2 px-3 text-white md:rounded-full shadow-2xl"
           type="submit" 
-          value="Crear profesor"
+          value={params.id ? 'Guardar cambios' : 'Crear profesor'}
         />          
         <Link
           className="block text-zinc-500"

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {deleteTeacher} from "../features/ListTeachers";
 
 const Teacher = ({teacher}) => {
@@ -18,7 +19,11 @@ const Teacher = ({teacher}) => {
         </div>
       </div>
       <div className="flex gap-2">
-        <button className="bg-blue-500 text-white rounded-full flex px-2 py-2 items-center justify-center text-sm">Editar</button>
+        <Link 
+          to={`/edit-teacher/${id}`}
+          className="bg-blue-500 text-white rounded-full flex px-2 py-2 items-center justify-center text-sm">
+          Editar
+        </Link>
         <button 
           onClick={() => handleDelete(id)}
           className="bg-red-500 text-white rounded-full flex px-2 py-2 items-center justify-center text-sm">
