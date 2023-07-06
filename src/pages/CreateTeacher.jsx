@@ -7,8 +7,6 @@ import { addTeacher, editTeacher } from '../features/ListTeachers';
 import { searchArray } from '../helpers/SearchValueArray';
 
 export const CreateTeacher = () => {
-  const params = useParams();
-  const listTeachers = useSelector(state => state.teachers);
   const [teacher, setTeacher] = useState({
     nombre: '',
     apellido: '',
@@ -16,6 +14,8 @@ export const CreateTeacher = () => {
     materias: 0,
     identificacion: '',    
   });
+  const params = useParams();
+  const listTeachers = useSelector(state => state.teachers);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
@@ -27,8 +27,10 @@ export const CreateTeacher = () => {
   }
 
   useEffect(() => {
-    const userEdit = searchArray(params.id, listTeachers);
-    setTeacher(userEdit);
+    if(params.id){
+      const userEdit = searchArray(params.id, listTeachers);
+      setTeacher(userEdit);
+    }
   }, []);
 
   const handleSubmit = e => {
@@ -100,11 +102,27 @@ export const CreateTeacher = () => {
         <div className="flex flex-col gap-2">
           <h1 className="text-center md:text-left text-lg text-zinc-500">Asignar materias</h1>      
           <div className="flex flex-wrap gap-y-3 items-center md:gap-5 border shadow-lg w-full md:w-max p-3 rounded-lg">
-            {params.id && 
+            {params.id ?
               <select  
                 required            
                 onChange={handleSelect}
                 value={teacher.materias > 0 && teacher.materias}
+                name="materias">
+                  <option value="">-- Seleccionar materia --</option>
+                {asignatures && asignatures.map(asignature => (
+                  <option
+                    key={asignature.id}
+                    name="materias"                  
+                    value={asignature.id}
+                  >
+                    {asignature.nombre}
+                  </option>                             
+                ))}
+              </select>
+              :
+              <select  
+                required            
+                onChange={handleSelect}
                 name="materias">
                   <option value="">-- Seleccionar materia --</option>
                 {asignatures && asignatures.map(asignature => (

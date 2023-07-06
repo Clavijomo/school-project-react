@@ -7,17 +7,44 @@ const students = [
       direccion: "Carrera 18 no. 1f-21",
       telefono: "3144416089",
       identificacion: '1234566',
-      materias: [1, 2]
+      materias: [
+        {
+          nombre: "Matematicas",
+          calificacion: 5.0,
+          id: 1
+        },
+        {
+          nombre: "Ciencias",
+          calificacion: 2.3,
+          id: 2    
+        },
+      ]
     },
     {
       id: 2,
-      nombre: "NN",
-      apellido: "NN",
+      nombre: "Felipe",
+      apellido: "Rodríguez",
       edad: 10,
       direccion: "Calle 6 no. 1D Bis",
       identificacion: '12345667',
       telefono: "123456",
-      materias: [2, 3]
+      materias: [
+        {
+          nombre: "Matematicas",
+          calificacion: 3.0,
+          id: 1
+        },
+        {
+          nombre: "Música",
+          calificacion: 3.0,
+          id: 3
+        },
+        {
+          nombre: "Ciencias",
+          calificacion: 2.3,
+          id: 2    
+        },
+      ]
     },
     {
       id: 3,
@@ -27,7 +54,23 @@ const students = [
       direccion: "cra 124--5443",
       telefono: "310233404",
       identificacion: '12323566',
-      materias: [1, 3]
+      materias: [
+        {
+          nombre: "Matematicas",
+          calificacion: 5.0,
+          id: 1
+        },
+        {
+          nombre: "Música",
+          calificacion: 3.7,
+          id: 3
+        },
+        {
+          nombre: "Ciencias",
+          calificacion: 2.3,
+          id: 2
+        },
+      ]
     }    
   ]
 

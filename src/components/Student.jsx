@@ -6,18 +6,15 @@ import { studentInfo } from '../features/InfoStudent';
 import {deleteStudent} from "../features/ListStudents";
 
 const Student = ({student}) => {  
-  const { nombre, apellido, edad, direccion, materias, id} = student;    
+  const { nombre, apellido, id, materias} = student;    
   const dispatch = useDispatch();  
 
-  const searchAsignatures = () => {
-    let infoAsignature = 'Sin materia';
-    materias.map(materia => {            
-      infoAsignature = asignatures.filter(item => item.id === materia)[0].nombre;            
-    });
-    return infoAsignature;
-  }
-
   const handleDelete = id => {
+    console.log(materias);
+    if(materias && materias.length) {
+      alert('No puedes eliminar este mensaje porque tiene materias inscritas');
+      return;
+    }
     dispatch(deleteStudent(id));
   }
   

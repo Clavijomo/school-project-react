@@ -1,11 +1,12 @@
 import { useSelector } from 'react-redux';
+import CalificationTeachers from '../components/CalificationTeachers';
 import InfoTeacher from '../components/InfoTeacher';
 import ListTeachers from '../components/ListTeachers';
-import SchoolGrades from "../components/SchoolGrades";
 
 const Teachers = () => {
   const infoTeacher = useSelector(state => state.teacherInfo);
-  console.log(infoTeacher);
+  const students = useSelector(state => state.students);
+
 
   return (
     <div className="space-y-5 md:flex md:flex-col sm:h-full sm:w-full">      
@@ -21,7 +22,10 @@ const Teachers = () => {
               <ListTeachers />                                    
             </div>          
             <div className="h-1/2">            
-              <SchoolGrades />
+              <CalificationTeachers 
+                students={students}
+                infoTeacher={infoTeacher}
+              />
             </div>
           </div>
         </div>

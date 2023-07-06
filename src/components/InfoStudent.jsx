@@ -7,7 +7,7 @@ const InfoStudent = ({infoStudent}) => {
     if(materias && Array.isArray(materias) && materias.length) {      
       return asignatures.map(asignature => {
         return materias.map((item, index) => {        
-          if(item == asignature.id) {
+          if(item.id == asignature.id) {
             return <li key={index}>{asignature.nombre}</li>
           }
         });
@@ -28,8 +28,8 @@ const InfoStudent = ({infoStudent}) => {
               </div>
               <div>
                 <div className="space-y-2">
-                  <h1 className="font-semibold md:text-xl text-white">{nombre}</h1>
-                  <p className="text-zinc-200 text-sm">{telefono}, {edad}</p>
+                  <h1 className="font-semibold md:text-xl text-white">{nombre} {apellido}</h1>
+                  <p className="text-zinc-200 text-sm">Estudiante</p>
                 </div>
               </div>        
             </div>                

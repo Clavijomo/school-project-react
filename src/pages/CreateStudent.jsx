@@ -5,6 +5,7 @@ import { addStudent, editStudent } from '../features/ListStudents';
 import {v4 as uuid} from "uuid";
 import asignatures from '../data/listAsignatures';
 import {searchArray} from '../helpers/SearchValueArray';
+import NumDecimal from '../helpers/numDecimal';
 
 const CreateStudent = () => {
   const navigate = useNavigate();
@@ -16,6 +17,8 @@ const CreateStudent = () => {
     apellido: '',
     edad: '',
     identificacion: '',
+    telefono: '',
+    direccion: '',
     materias: [],
   });
   const dispatch = useDispatch();
@@ -45,25 +48,30 @@ const CreateStudent = () => {
         }));              
       }    
       navigate('/');
-      return    
+      return;
   }
 
   const handleCheckbox = e => {  
     let newStudent = student;
     if(!params.id) {
-      if(e.target.checked) {
-        newStudent.materias.push(Number(e.target.value));
+      if(e.target.checked) {   
+        let asignatura = asignatures.filter(item => item.id === Number(e.target.value))[0]      
+        asignatura.calificacion = NumDecimal(0);
+        newStudent.materias.push(asignatura);
         setStudent(newStudent); 
       } else {
-        const filterId = newStudent.materias.filter(item => item !== Number(e.target.value));      
+        const filterId = newStudent.materias.filter(item => item.id !== Number(e.target.value));      
         newStudent.materias = filterId;
         setStudent(newStudent);
       }
     } else {
       if(e.target.checked) {
-        setStudent({...student, materias: [...student.materias, Number(e.target.value)]})
+        let asignatura = asignatures.filter(item => item.id === Number(e.target.value))[0]
+        asignatura.calificacion = NumDecimal(0);
+        setStudent({...student, materias: [...student.materias, asignatura]})
+        console.log(student)
       } else {
-        const filterId = student.materias.filter(item => item !== Number(e.target.value));   
+        const filterId = student.materias.filter(item => item.id !== Number(e.target.value));   
         setStudent({...student, materias: filterId});
       }
     } 
@@ -72,7 +80,7 @@ const CreateStudent = () => {
   const asignatureChecked = id => {
     let response = false;
     student.materias.map(item => {
-      if(item === id) {
+      if(item.id === id) {
         response = true;
       }
     });
@@ -121,6 +129,24 @@ const CreateStudent = () => {
           placeholder="No. identificación"
           onChange={handleChange}
           value={student.identificacion}
+        />
+        <input 
+          required
+          name="telefono"
+          className="bg-transparent w-full block md:w-max border-black border-b pb-1" 
+          type="number" 
+          placeholder="Télefono"
+          onChange={handleChange}
+          value={student.telefono}
+        />
+        <input 
+          required
+          name="direccion"
+          className="bg-transparent w-full block md:w-max border-black border-b pb-1" 
+          type="text" 
+          placeholder="Dirección"
+          onChange={handleChange}
+          value={student.direccion}
         />
         <div className="flex flex-col gap-5">
           <div>

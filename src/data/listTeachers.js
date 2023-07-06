@@ -5,7 +5,7 @@ const teachers = [
     apellido: "Ramírez",
     edad: 32,
     direccion: "Carrera 18 no. 1f-21",
-    materias: 3,
+    materias: 1,
     identificacion: "10006161652",
     telefono: "314-4474613",
   },

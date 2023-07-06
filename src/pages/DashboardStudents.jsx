@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import Classroom from '../components/Classroom';
 import InfoStudent from '../components/InfoStudent';
-import SchoolGrades from "../components/SchoolGrades";
+import Califications from "../components/Califications";
 
 
 const Dashboard = () => {  
@@ -20,7 +20,9 @@ const Dashboard = () => {
               <Classroom />                                    
             </div>          
             <div className="h-1/2">            
-              <SchoolGrades />
+              <Califications 
+                infoStudent={infoStudent ? infoStudent : {}}
+              />
             </div>
           </div>
         </div>
