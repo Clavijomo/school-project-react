@@ -12,6 +12,8 @@ export const CreateTeacher = () => {
     apellido: '',
     edad: '',
     materias: 0,
+    direccion: "",
+    telefono: "",
     identificacion: '',    
   });
   const params = useParams();
@@ -99,6 +101,24 @@ export const CreateTeacher = () => {
           onChange={handleChange}
           value={teacher.identificacion}   
         />  
+        <input 
+          required
+          name="telefono"
+          className="bg-transparent w-full block md:w-max border-black border-b pb-1" 
+          type="text" 
+          placeholder="Teléfono" 
+          onChange={handleChange}  
+          value={teacher.telefono}       
+        />
+        <input 
+          required
+          name="direccion"
+          className="bg-transparent w-full block md:w-max border-black border-b pb-1" 
+          type="text" 
+          placeholder="Dirección" 
+          onChange={handleChange}  
+          value={teacher.direccion}       
+        />
         <div className="flex flex-col gap-2">
           <h1 className="text-center md:text-left text-lg text-zinc-500">Asignar materias</h1>      
           <div className="flex flex-wrap gap-y-3 items-center md:gap-5 border shadow-lg w-full md:w-max p-3 rounded-lg">

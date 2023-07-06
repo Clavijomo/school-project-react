@@ -15,7 +15,7 @@ const InfoTeacher = ({infoTeacher}) => {
               <div>
                 <div className="space-y-2">
                   <h1 className="font-semibold md:text-xl">{nombre} {apellido}</h1>
-                  <p className="text-zinc-500 text-sm">{telefono}, {edad}</p>
+                  <p className="text-zinc-500 text-sm">Profesor</p>
                 </div>
               </div>        
             </div>                
