@@ -1,19 +1,19 @@
-import React, {useEffect, useState} from 'react';
-import { useSelector } from 'react-redux';
 import asignatures from '../data/listAsignatures';
 
 const InfoStudent = ({infoStudent}) => {
   const {nombre, apellido, id, identificacion, materias, edad, telefono, direccion} = infoStudent;  
   
   const Showasignature = () => {
-    if(materias) {      
+    if(materias && Array.isArray(materias) && materias.length) {      
       return asignatures.map(asignature => {
-        return materias.map(item => {        
+        return materias.map((item, index) => {        
           if(item == asignature.id) {
-            return <li>{asignature.nombre}</li>
+            return <li key={index}>{asignature.nombre}</li>
           }
         });
       });    
+    } else {
+      return <li>No hay materias inscritas</li>
     }
   }      
 

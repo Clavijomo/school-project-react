@@ -11,7 +11,7 @@ const Dashboard = () => {
       <div className="h-full">
         <div className="md:grid md:grid-cols-2 md:gap-5 h-full">
           <div>  
-            <InfoStudent 
+            <InfoStudent               
               infoStudent={infoStudent ? infoStudent : {}}
             />        
           </div>

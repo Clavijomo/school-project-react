@@ -34,9 +34,7 @@ const CreateStudent = () => {
   }, []);
 
   const handleSubmit = e => {
-    e.preventDefault();    
-    // Si está editando...
-    if(Array.isArray(student.materias) && student.materias.length) {
+    e.preventDefault();     
       if(params.id) {
         dispatch(editStudent(student));
       } else {
@@ -47,9 +45,7 @@ const CreateStudent = () => {
         }));              
       }    
       navigate('/');
-      return
-    }
-    alert("Debes seleccionar mínimo una materia");
+      return    
   }
 
   const handleCheckbox = e => {  
